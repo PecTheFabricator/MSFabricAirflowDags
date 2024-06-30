@@ -14,7 +14,7 @@ default_args = {
 
 # Function to dynamically add authentication token to headers
 def add_auth_token(**kwargs):
-    auth_token = Variable.get("auth_token")
+    auth_token = Variable.get("AzAppAuthToken")
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {auth_token}"
@@ -23,7 +23,7 @@ def add_auth_token(**kwargs):
 
 # Define the DAG
 dag = DAG(
-    'post_request_with_auth',
+    'RunMSFabricItems',
     default_args=default_args,
     description='A simple DAG to perform a POST request with an authentication token',
     schedule_interval='@daily',
@@ -38,10 +38,10 @@ get_auth_headers = PythonOperator(
 )
 
 # Task to perform the POST request
-post_request = SimpleHttpOperator(
-    task_id='post_request',
-    http_conn_id='http_default',  # Replace with your connection ID
-    endpoint='your/api/endpoint',  # Replace with your endpoint
+AzCostManage_Transformation_dag = SimpleHttpOperator(
+    task_id='AzCostManage_Transformation',
+    http_conn_id='https://api.fabric.microsoft.com/v1/',  # Replace with your connection ID
+    endpoint='workspaces/31d140f3-20e4-4365-97ab-15e1348d6dea/items/ccd4ed3e-30ac-4ff8-87c6-a65b4483f833/jobs/instances?jobType=DefaultJob',  # Replace with your endpoint
     method='POST',
     headers="{{ task_instance.xcom_pull(task_ids='get_auth_headers') }}",
     data=json.dumps({"key": "value"}),  # Replace with your data payload
@@ -51,4 +51,4 @@ post_request = SimpleHttpOperator(
 )
 
 # Define the task dependencies
-get_auth_headers >> post_request
+get_auth_headers >> AzCostManage_Transformation_dag
