@@ -16,8 +16,8 @@ with DAG(
     dataset_refresh = PowerBIDatasetRefreshOperator(
         powerbi_conn_id= "powerbi_default",
         task_id="sync_dataset_refresh",
-        dataset_id="<dataset_id>,
-        group_id="<workspace_id>",
+        dataset_id="1c808e6d-11e4-4a40-952c-f7d8952b2429",
+        group_id="31d140f3-20e4-4365-97ab-15e1348d6dea",
     )
     # [END howto_operator_powerbi_refresh_dataset]
 
