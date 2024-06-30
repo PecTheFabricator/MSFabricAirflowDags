@@ -8,7 +8,7 @@ import json
 # Define the default arguments
 default_args = {
     'owner': 'airflow',
-    #'start_date': days_ago(1),
+    'start_date': days_ago(1),
     #'retries': 1,
 }
 
