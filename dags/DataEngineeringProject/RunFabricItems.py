@@ -40,7 +40,7 @@ get_auth_headers = PythonOperator(
 # Task to perform the POST request
 AzCostManage_Transformation_dag = SimpleHttpOperator(
     task_id='AzCostManage_Transformation',
-    http_conn_id='https://api.fabric.microsoft.com/v1/',  # Replace with your connection ID
+    http_conn_id='http_ms_fabric',  # Replace with your connection ID
     endpoint='workspaces/31d140f3-20e4-4365-97ab-15e1348d6dea/items/ccd4ed3e-30ac-4ff8-87c6-a65b4483f833/jobs/instances?jobType=DefaultJob',  # Replace with your endpoint
     method='POST',
     headers="{{ task_instance.xcom_pull(task_ids='get_auth_headers') }}",
