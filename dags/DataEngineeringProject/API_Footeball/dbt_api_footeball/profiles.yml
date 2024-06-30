@@ -1,0 +1,17 @@
+config:
+  partial_parse: true
+nyc_taxi_green:
+  target: fabric-dev
+  outputs:
+    fabric-dev:
+      type: fabric
+      driver: "ODBC Driver 18 for SQL Server"
+      server: <sql endpoint of your data warehouse>
+      port: 1433
+      database: "<name of the database>"
+      schema: dbo
+      threads: 4
+      authentication: ServicePrincipal
+      tenant_id: <Tenant ID of your service principal>
+      client_id: <Client ID of your service principal>
+      client_secret: <Client Secret of your service principal>
